@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Mes Factures - Cica Noblesse Pressing</title>
         <!-- DESCRIPTION LONGUE POUR GOOGLE -->
         <meta name="description"
@@ -35,17 +35,17 @@
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('images/Cica.png') }}" type="image/x-icon">
-    <link rel="preconnect" href="https://fonts.bunny.net">
+        <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800&display=swap" rel="stylesheet" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
+            @vite(['resources/css/app.css', 'resources/js/app.js'])
+    </head>
 <body class="font-sans antialiased text-gray-900 bg-gray-100">
     <!-- Header avec logo -->
     <header class="absolute top-0 left-0 z-20 p-4 sm:p-6">
         <div class="flex items-center space-x-3">
             <img src="{{ asset(path: '/Cica.png') }}" alt="Logo Cica Noblesse Pressing" class="h-8 w-8 sm:h-10 sm:w-10 object-contain" />
             <span class="text-white font-bold text-lg sm:text-xl">Cica Noblesse Pressing</span>
-        </div>
+                        </div>
     </header>
 
     <!-- Section principale -->
@@ -55,7 +55,7 @@
             <div class="absolute top-20 left-20 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
             <div class="absolute bottom-20 right-20 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
             <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-white/5 rounded-full blur-3xl"></div>
-        </div>
+                                        </div>
 
         <div class="w-full max-w-4xl px-6 text-center py-8 sm:py-20 relative z-10">
             <h1 class="w-full text-3xl sm:text-5xl md:text-7xl font-extrabold mb-4 sm:mb-8 leading-tight text-white drop-shadow-lg">
@@ -76,21 +76,21 @@
                     </svg>
                     <span>Consulter mes factures</span>
                 </a>
-            </div>
-        </div>
+                                </div>
+                </div>
     </section>
 
     <!-- Footer -->
     <footer class="bg-gray-900 text-white py-8 w-full">
-        <div class="container mx-auto px-4 text-center">
-            <h3 class="text-2xl font-bold mb-2">
-                <span class="text-blue-400">Cica</span> <span class="text-yellow-400">Noblesse Pressing</span>
-            </h3>
-            <p class="text-gray-400 mb-2">Votre pressing de confiance</p>
-            <p class="text-sm text-gray-500">© 2025 Cica Noblesse Pressing. Tous droits réservés.<br>
-                Réalisé par <a href="https://portfolio-cnkp.vercel.app" target="_blank" rel="noopener noreferrer" class="hover:text-yellow-500 text-yellow-400 transition-colors font-semibold">Ray Ague</a>
-            </p>
-        </div>
+      <div class="max-w-2xl mx-auto px-4 text-center">
+        <p class="font-bold text-lg mb-1">
+          Developed by <span class="text-blue-400">Ray Ague</span>
+        </p>
+        <p class="text-sm">
+          Project Manager and Business Development Analyst:
+          <span class="font-semibold" style="color: #F59E0B">Abdalah KH AGUESSY-VOGNON</span>
+        </p>
+      </div>
     </footer>
-</body>
+    </body>
 </html>

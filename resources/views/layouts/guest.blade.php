@@ -45,15 +45,15 @@
         </div>
         <!-- Footer -->
         <footer class="bg-gray-900 text-white py-8 mt-12">
-            <div class="container mx-auto px-4 text-center">
-                <h3 class="text-2xl font-bold mb-2">
-                    <span class="text-blue-400">Cica</span> <span class="text-yellow-400">Noblesse</span>
-                </h3>
-                <p class="text-gray-400 mb-2">Votre pressing de confiance</p>
-                <p class="text-sm text-gray-500">© 2024 Cica Noblesse Pressing. Tous droits réservés.<br>
-                    Réalisé par <a href="https://portfolio-cnkp.vercel.app" target="_blank" rel="noopener noreferrer" class="hover:text-yellow-500 text-yellow-400 transition-colors font-semibold">Ray Ague</a>
-                </p>
-            </div>
+          <div class="max-w-2xl mx-auto px-4 text-center">
+            <p class="font-bold text-lg mb-1">
+              Developed by <span class="text-blue-400">Ray Ague</span>
+            </p>
+            <p class="text-sm">
+              Project Manager and Business Development Analyst:
+              <span class="font-semibold" style="color: #F59E0B">Abdalah KH AGUESSY-VOGNON</span>
+            </p>
+          </div>
         </footer>
     </body>
 </html>

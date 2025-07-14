@@ -24,7 +24,8 @@ class Commande extends Model
         'solde_restant',
         'remise_reduction',
         'original_total',
-        'discount_amount'
+        'discount_amount',
+        'password_client'
     ];
 
     /**

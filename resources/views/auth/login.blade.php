@@ -2,7 +2,7 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form method="POST" action="{{ route('login') }}" class="space-y-6">
+    <form method="POST" action="/client/login" class="space-y-6">
         @csrf
         <h2 class="text-2xl font-bold text-center text-blue-700 mb-6">Connexion à votre espace</h2>
         <!-- Email Address -->
@@ -34,7 +34,7 @@
         </div>
         <div class="text-center text-sm text-gray-600 mt-4">
             Pas encore de compte ?
-            <a href="{{ route('register') }}" class="text-blue-600 hover:underline font-semibold">Créer un compte</a>
+            <a href="/client/login" class="text-blue-600 hover:underline font-semibold">Créer un compte</a>
         </div>
     </form>
 </x-guest-layout>

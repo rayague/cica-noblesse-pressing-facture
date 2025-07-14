@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}" class="space-y-6">
+    <form method="POST" action="/client/login" class="space-y-6">
         @csrf
         <h2 class="text-2xl font-bold text-center text-blue-700 mb-6">Créer un compte</h2>
         <!-- Name -->
@@ -27,7 +27,7 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
         <div class="flex items-center justify-between mt-4">
-            <a class="text-sm text-blue-600 hover:underline" href="{{ route('login') }}">
+            <a class="text-sm text-blue-600 hover:underline" href="/client/login">
                 Déjà inscrit ? Se connecter
             </a>
             <button type="submit" class="py-3 px-6 bg-blue-600 text-white font-bold rounded-lg shadow hover:bg-blue-700 transition">Créer mon compte</button>

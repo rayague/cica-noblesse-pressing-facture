@@ -12,6 +12,7 @@ Route::get('/', function () {
 Route::prefix('client')->name('client.')->group(function () {
     Route::get('/login', [ClientController::class, 'showLogin'])->name('login');
     Route::post('/login', [ClientController::class, 'login'])->name('login.post');
+    Route::post('/login/verify', [ClientController::class, 'verifyPhonePhp'])->name('login.verify');
     Route::get('/factures', [ClientController::class, 'showFactures'])->name('factures');
     Route::get('/factures/{id}/download', [ClientController::class, 'downloadFacture'])->name('factures.download');
     Route::post('/logout', [ClientController::class, 'logout'])->name('logout');

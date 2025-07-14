@@ -26,71 +26,108 @@
                     <span class="text-sm text-gray-600">
                         Connecté en tant que <span class="font-semibold">{{ $clientInfo['nom'] }}</span>
                     </span>
-                    <form method="POST" action="{{ route('client.logout') }}" class="inline">
-                        @csrf
-                        <button type="submit" class="text-sm text-red-600 hover:text-red-800 transition-colors">
-                            Déconnexion
-                        </button>
-                    </form>
+                    <!-- Nouveau bouton de déconnexion -->
+                    <button type="button" id="openLogoutModal" class="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded-lg shadow hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 transition-colors">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h4a2 2 0 012 2v1" />
+                        </svg>
+                        Déconnexion
+                    </button>
                 </div>
             </div>
         </div>
     </header>
 
+    <!-- Modal de confirmation de déconnexion -->
+    <div id="logoutModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm transition-opacity duration-200 hidden">
+        <div class="bg-white/90 backdrop-blur-lg rounded-2xl shadow-2xl p-8 w-3/4 mx-4 relative animate-fade-in flex flex-col items-center">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4 text-center">Confirmer la déconnexion</h2>
+            <p class="text-gray-700 mb-6 text-center">Êtes-vous sûr de vouloir vous déconnecter&nbsp;?</p>
+            <div class="flex justify-center space-x-3 w-full">
+                <button id="cancelLogout" class="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 transition w-1/2">Annuler</button>
+                <form method="POST" action="{{ route('client.logout') }}" class="w-1/2">
+                    @csrf
+                    <button type="submit" class="w-full px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition">Confirmer</button>
+                </form>
+            </div>
+            <button id="closeLogoutModal" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700" aria-label="Fermer">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+        </div>
+    </div>
+
+    <style>
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(30px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .animate-fade-in { animation: fade-in 0.25s cubic-bezier(.4,0,.2,1); }
+        body.modal-open { overflow: hidden; }
+    </style>
+
+    <script>
+        const logoutModal = document.getElementById('logoutModal');
+        const openBtn = document.getElementById('openLogoutModal');
+        const cancelBtn = document.getElementById('cancelLogout');
+        const closeBtn = document.getElementById('closeLogoutModal');
+
+        openBtn.onclick = function() {
+            logoutModal.classList.remove('hidden');
+            document.body.classList.add('modal-open');
+        };
+        cancelBtn.onclick = closeBtn.onclick = function() {
+            logoutModal.classList.add('hidden');
+            document.body.classList.remove('modal-open');
+        };
+        // Fermer le modal si on clique en dehors du contenu
+        logoutModal.onclick = function(e) {
+            if (e.target === logoutModal) {
+                logoutModal.classList.add('hidden');
+                document.body.classList.remove('modal-open');
+            }
+        };
+    </script>
+
     <!-- Contenu principal -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Statistiques -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <div class="bg-white rounded-xl p-6 shadow-sm border">
-                <div class="flex items-center">
+        <div class="flex flex-col sm:flex-row gap-6 mb-8">
+            <div class="flex-1 bg-white rounded-xl p-6 shadow-sm border flex flex-col items-center justify-center">
+                <div class="flex flex-col items-center">
                     <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                         <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                         </svg>
                     </div>
-                    <div class="ml-4">
+                    <div class="mt-4 text-center">
                         <p class="text-sm font-medium text-gray-600">Total Factures</p>
                         <p class="text-2xl font-bold text-gray-900">{{ $totalCommandes }}</p>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-white rounded-xl p-6 shadow-sm border">
-                <div class="flex items-center">
-                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-                        </svg>
-                    </div>
-                    <div class="ml-4">
-                        <p class="text-sm font-medium text-gray-600">Montant Total</p>
-                        <p class="text-2xl font-bold text-gray-900">{{ number_format($totalMontant, 0, ',', ' ') }} FCFA</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-xl p-6 shadow-sm border">
-                <div class="flex items-center">
+            <div class="flex-1 bg-white rounded-xl p-6 shadow-sm border flex flex-col items-center justify-center">
+                <div class="flex flex-col items-center">
                     <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
                         <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                     </div>
-                    <div class="ml-4">
+                    <div class="mt-4 text-center">
                         <p class="text-sm font-medium text-gray-600">En Cours</p>
                         <p class="text-2xl font-bold text-gray-900">{{ $commandesEnCours }}</p>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-white rounded-xl p-6 shadow-sm border">
-                <div class="flex items-center">
+            <div class="flex-1 bg-white rounded-xl p-6 shadow-sm border flex flex-col items-center justify-center">
+                <div class="flex flex-col items-center">
                     <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
                         <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                     </div>
-                    <div class="ml-4">
+                    <div class="mt-4 text-center">
                         <p class="text-sm font-medium text-gray-600">Terminées</p>
                         <p class="text-2xl font-bold text-gray-900">{{ $commandesTerminees }}</p>
                     </div>
@@ -211,15 +248,15 @@
 
     <!-- Footer -->
     <footer class="bg-gray-900 text-white py-8 mt-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h3 class="text-2xl font-bold mb-2">
-                <span class="text-blue-400">Cica</span> <span class="text-yellow-400">Noblesse</span>
-            </h3>
-            <p class="text-gray-400 mb-2">Votre pressing de confiance</p>
-            <p class="text-sm text-gray-500">© 2025 Cica Noblesse Pressing. Tous droits réservés.<br>
-                Réalisé par <a href="https://portfolio-cnkp.vercel.app" target="_blank" rel="noopener noreferrer" class="hover:text-yellow-500 text-yellow-400 transition-colors font-semibold">Ray Ague</a>
-            </p>
-        </div>
+      <div class="max-w-2xl mx-auto px-4 text-center">
+        <p class="font-bold text-lg mb-1">
+          Developed by <span class="text-blue-400">Ray Ague</span>
+        </p>
+        <p class="text-sm">
+          Project Manager and Business Development Analyst:
+          <span class="font-semibold" style="color: #F59E0B">Abdalah KH AGUESSY-VOGNON</span>
+        </p>
+      </div>
     </footer>
 </body>
 </html>
