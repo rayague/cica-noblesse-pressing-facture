@@ -89,8 +89,8 @@
         <p class="text-sm">
           Project Manager and Business Development Analyst:
           <span class="font-semibold" style="color: #F59E0B">Abdalah KH AGUESSY-VOGNON</span>
-        </p>
-      </div>
+            </p>
+        </div>
     </footer>
     </body>
 </html>

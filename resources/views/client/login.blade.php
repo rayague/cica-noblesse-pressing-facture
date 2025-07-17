@@ -10,6 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Consultation Factures - Cica Noblesse Pressing</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="{{ asset('images/Cica.png') }}" type="image/x-icon">
+
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800&display=swap" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -42,6 +44,16 @@
                         Entrez votre mot de passe pour accéder à vos factures
                     @endif
                 </p>
+                @if($step == 1)
+                <div class="mt-4 mb-2 flex justify-center">
+                    <div class="bg-yellow-100 border border-yellow-400 rounded-lg px-4 py-3 text-yellow-800 text-base font-semibold flex items-center gap-2 max-w-md">
+                        <svg class="w-6 h-6 text-yellow-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span>Si vous n'avez pas encore de mot de passe, veuillez vous rendre dans l’agence Cica pour qu’on vous le délivre.</span>
+                    </div>
+                </div>
+                @endif
             </div>
 
             <!-- Formulaire de connexion -->
@@ -60,6 +72,17 @@
                         <div class="text-green-200 text-sm">{{ session('success') }}</div>
                     </div>
                 @endif
+                {{-- @if ($errors->has('numero_whatsapp') && str_contains($errors->first('numero_whatsapp'), 'aucun mot de passe'))
+                    <div class="mb-6 p-4 bg-yellow-400/20 border border-yellow-400/30 rounded-lg">
+                        <div class="text-yellow-900 text-base font-semibold flex items-center gap-2">
+                            <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Ce numéro est associé à des factures, mais aucun mot de passe n’a encore été défini.<br>
+                            <span class="font-bold">Veuillez vous rendre dans l’agence Cica pour qu’on vous délivre votre mot de passe.</span>
+                        </div>
+                    </div>
+                @endif --}}
 
                 @if($step == 1)
                 <form method="POST" action="{{ route('client.login.verify') }}" class="space-y-6">

@@ -6,6 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
+        <link rel="shortcut icon" href="{{ asset('images/Cica.png') }}" type="image/x-icon">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -52,8 +53,8 @@
             <p class="text-sm">
               Project Manager and Business Development Analyst:
               <span class="font-semibold" style="color: #F59E0B">Abdalah KH AGUESSY-VOGNON</span>
-            </p>
-          </div>
+                </p>
+            </div>
         </footer>
     </body>
 </html>
