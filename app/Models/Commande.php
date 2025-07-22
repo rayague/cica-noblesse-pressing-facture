@@ -62,3 +62,4 @@ class Commande extends Model
         return $this->payments()->sum('amount');
     }
 }
+ 

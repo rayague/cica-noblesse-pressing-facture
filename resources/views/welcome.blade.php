@@ -81,16 +81,16 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-8 w-full">
+    <footer class="bg-gray-900 text-white py-8 mt-12">
       <div class="max-w-2xl mx-auto px-4 text-center">
         <p class="font-bold text-lg mb-1">
-          Developed by <span class="text-blue-400">Ray Ague</span>
+          Developed by <a href="https://www.linkedin.com/in/ray-ague-2066b4247/" target="_blank" rel="noopener" class="text-blue-400 underline hover:text-blue-300">Ray Ague</a>
         </p>
         <p class="text-sm">
           Project Manager and Business Development Analyst:
-          <span class="font-semibold" style="color: #F59E0B">Abdalah KH AGUESSY-VOGNON</span>
-            </p>
-        </div>
+          <a href="https://www.linkedin.com/in/abdalah-aguessy-vognon?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" rel="noopener" class="font-semibold" style="color: #F59E0B; text-decoration: underline;">Abdalah KH AGUESSY-VOGNON</a>
+        </p>
+      </div>
     </footer>
     </body>
 </html>

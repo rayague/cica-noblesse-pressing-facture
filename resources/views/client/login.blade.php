@@ -50,7 +50,7 @@
                         <svg class="w-6 h-6 text-yellow-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
-                        <span>Si vous n'avez pas encore de mot de passe, veuillez vous rendre dans l’agence Cica pour qu’on vous le délivre.</span>
+                        <span>Si vous ne disposez pas encore d’un mot de passe, nous vous invitons à vous rendre dans notre agence ou à nous contacter via WhatsApp afin que vous puissiez le définir.</span>
                     </div>
                 </div>
                 @endif

@@ -45,16 +45,14 @@
         <div class="bg-white/90 backdrop-blur-lg rounded-2xl shadow-2xl p-8 w-3/4 mx-4 relative animate-fade-in flex flex-col items-center">
             <h2 class="text-lg font-semibold text-gray-900 mb-4 text-center">Confirmer la déconnexion</h2>
             <p class="text-gray-700 mb-6 text-center">Êtes-vous sûr de vouloir vous déconnecter&nbsp;?</p>
-            <div class="flex justify-center space-x-3 w-full">
-                <button id="cancelLogout" class="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 transition w-1/2">Annuler</button>
-                <form method="POST" action="{{ route('client.logout') }}" class="w-1/2">
+            <div class="flex flex-col sm:flex-row justify-center gap-3 w-full mt-2">
+                <button id="cancelLogout" class="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 transition w-full sm:w-1/2">Annuler</button>
+                <form method="POST" action="{{ route('client.logout') }}" class="w-full sm:w-1/2">
                     @csrf
                     <button type="submit" class="w-full px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition">Confirmer</button>
                 </form>
             </div>
-            <button id="closeLogoutModal" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700" aria-label="Fermer">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-            </button>
+
         </div>
     </div>
 
@@ -93,8 +91,8 @@
     <!-- Contenu principal -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Statistiques -->
-        <div class="flex flex-col sm:flex-row gap-6 mb-8">
-            <div class="flex-1 bg-white rounded-xl p-6 shadow-sm border flex flex-col items-center justify-center">
+        <div class="flex flex-row flex-nowrap gap-6 mb-8 overflow-x-auto">
+            <div class="flex-1 min-w-[250px] bg-white rounded-xl p-6 shadow-sm border flex flex-col items-center justify-center">
                 <div class="flex flex-col items-center">
                     <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                         <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -108,7 +106,7 @@
                 </div>
             </div>
 
-            <div class="flex-1 bg-white rounded-xl p-6 shadow-sm border flex flex-col items-center justify-center">
+            <div class="flex-1 min-w-[250px] bg-white rounded-xl p-6 shadow-sm border flex flex-col items-center justify-center">
                 <div class="flex flex-col items-center">
                     <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
                         <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -122,7 +120,7 @@
                 </div>
             </div>
 
-            <div class="flex-1 bg-white rounded-xl p-6 shadow-sm border flex flex-col items-center justify-center">
+            <div class="flex-1 min-w-[250px] bg-white rounded-xl p-6 shadow-sm border flex flex-col items-center justify-center">
                 <div class="flex flex-col items-center">
                     <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
                         <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -155,87 +153,68 @@
                     <p class="text-gray-600">Vous n'avez pas encore de factures dans notre système.</p>
                 </div>
             @else
-                <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    N° Commande
-                                </th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Date
-                                </th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Montant
-                                </th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Statut
-                                </th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Actions
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            @foreach($commandes as $commande)
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm font-medium text-gray-900">{{ $commande->numero }}</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ \Carbon\Carbon::parse($commande->created_at)->format('d/m/Y') }}</div>
-                                        <div class="text-sm text-gray-500">{{ \Carbon\Carbon::parse($commande->created_at)->format('H:i') }}</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm font-medium text-gray-900">{{ number_format($commande->total, 0, ',', ' ') }} FCFA</div>
-                                        @if($commande->avance_client > 0)
-                                            <div class="text-xs text-gray-500">
-                                                Acompte: {{ number_format($commande->avance_client, 0, ',', ' ') }} FCFA
-                                            </div>
-                                        @endif
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        @if($commande->statut === 'Retiré')
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                                Retiré
-                                            </span>
-                                        @elseif($commande->statut === 'Partiellement payé')
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                                                Partiellement payé
-                                            </span>
-                                        @else
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                                                En attente
-                                            </span>
-                                        @endif
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <a href="{{ route('client.factures.download', $commande->id) }}"
-                                           class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
-                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                            </svg>
-                                            Télécharger
-                                        </a>
-                                        @php
-                                            $numeroPressing = '229XXXXXXXX'; // Remplace par le vrai numéro WhatsApp du pressing
-                                            $message = rawurlencode(
-                                                'Bonjour,\nJe souhaite avoir des informations sur ma facture #' . ($commande->numero ?? '') . ' du ' . (\Carbon\Carbon::parse($commande->created_at)->format('d/m/Y')) . '.\nMerci.'
-                                            );
-                                        @endphp
-                                        <a href="https://wa.me/{{ $numeroPressing }}?text={{ $message }}"
-                                           target="_blank"
-                                           class="inline-flex items-center px-3 py-2 ml-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors">
-                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V10a2 2 0 012-2h2m4-4h4a2 2 0 012 2v4a2 2 0 01-2 2h-4a2 2 0 01-2-2V6a2 2 0 012-2z" />
-                                            </svg>
-                                            WhatsApp
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+                    @foreach($commandes as $commande)
+                        <div class="bg-white rounded-xl shadow-sm border p-6 flex flex-col justify-between h-full">
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-semibold text-gray-500">N° Commande</span>
+                                    <span class="text-sm font-bold text-gray-900">{{ $commande->numero }}</span>
+                                </div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-semibold text-gray-500">Date</span>
+                                    <span class="text-sm text-gray-900">{{ \Carbon\Carbon::parse($commande->created_at)->format('d/m/Y') }}</span>
+                                </div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-semibold text-gray-500">Heure</span>
+                                    <span class="text-sm text-gray-500">{{ \Carbon\Carbon::parse($commande->created_at)->format('H:i') }}</span>
+                                </div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-semibold text-gray-500">Montant</span>
+                                    <span class="text-sm font-bold text-gray-900">{{ number_format($commande->total, 0, ',', ' ') }} FCFA</span>
+                                </div>
+                                @if($commande->avance_client > 0)
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-xs font-semibold text-gray-500">Acompte</span>
+                                        <span class="text-xs text-gray-500">{{ number_format($commande->avance_client, 0, ',', ' ') }} FCFA</span>
+                                    </div>
+                                @endif
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="text-xs font-semibold text-gray-500">Statut</span>
+                                    @if($commande->statut === 'Retiré')
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Retiré</span>
+                                    @elseif($commande->statut === 'Partiellement payé')
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">Partiellement payé</span>
+                                    @else
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">En attente</span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="flex flex-col sm:flex-row gap-2 mt-4">
+                                <a href="{{ route('client.factures.download', $commande->id) }}"
+                                   class="inline-flex items-center justify-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors w-full sm:w-auto">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                    Télécharger
+                                </a>
+                                @php
+                                    $numeroPressing = '229XXXXXXXX'; // Remplace par le vrai numéro WhatsApp du pressing
+                                    $message = rawurlencode(
+                                        'Bonjour,\nJe souhaite avoir des informations sur ma facture #' . ($commande->numero ?? '') . ' du ' . (\Carbon\Carbon::parse($commande->created_at)->format('d/m/Y')) . '.\nMerci.'
+                                    );
+                                @endphp
+                                <a href="https://wa.me/{{ $numeroPressing }}?text={{ $message }}"
+                                   target="_blank"
+                                   class="inline-flex items-center justify-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors w-full sm:w-auto">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V10a2 2 0 012-2h2m4-4h4a2 2 0 012 2v4a2 2 0 01-2 2h-4a2 2 0 01-2-2V6a2 2 0 012-2z" />
+                                    </svg>
+                                    WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             @endif
         </div>
@@ -266,11 +245,11 @@
     <footer class="bg-gray-900 text-white py-8 mt-12">
       <div class="max-w-2xl mx-auto px-4 text-center">
         <p class="font-bold text-lg mb-1">
-          Developed by <span class="text-blue-400">Ray Ague</span>
+          Developed by <a href="https://www.linkedin.com/in/ray-ague-2066b4247/" target="_blank" rel="noopener" class="text-blue-400 underline hover:text-blue-300">Ray Ague</a>
         </p>
         <p class="text-sm">
           Project Manager and Business Development Analyst:
-          <span class="font-semibold" style="color: #F59E0B">Abdalah KH AGUESSY-VOGNON</span>
+          <a href="https://www.linkedin.com/in/abdalah-aguessy-vognon?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" rel="noopener" class="font-semibold" style="color: #F59E0B; text-decoration: underline;">Abdalah KH AGUESSY-VOGNON</a>
         </p>
       </div>
     </footer>
