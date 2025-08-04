@@ -19,7 +19,7 @@
     <meta name="robots" content="index, follow">
 
     <!-- OPEN GRAPH POUR FACEBOOK ET WHATSAPP -->
-    <meta property="og:title" content="Cica - Service de lavage par Ray Ague">
+    <meta property="og:title" content="Cica - Service de lavage">
     <meta property="og:description"
         content="Besoin d'un service de lavage rapide et efficace ? Cica, développé par Ray Ague, est la solution parfaite !">
     <meta property="og:image" content="{{ asset('images/Cica.png') }}">
@@ -89,8 +89,8 @@
         <p class="text-sm">
           Project Manager and Business Development Analyst:
           <a href="https://www.linkedin.com/in/abdalah-aguessy-vognon?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" rel="noopener" class="font-semibold" style="color: #F59E0B; text-decoration: underline;">Abdalah KH AGUESSY-VOGNON</a>
-        </p>
-      </div>
+            </p>
+        </div>
     </footer>
     </body>
 </html>

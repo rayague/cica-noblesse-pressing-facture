@@ -154,7 +154,7 @@
                 </div>
             @else
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
-                    @foreach($commandes as $commande)
+                            @foreach($commandes as $commande)
                         <div class="bg-white rounded-xl shadow-sm border p-6 flex flex-col justify-between h-full">
                             <div>
                                 <div class="flex items-center justify-between mb-2">
@@ -170,51 +170,55 @@
                                     <span class="text-sm text-gray-500">{{ \Carbon\Carbon::parse($commande->created_at)->format('H:i') }}</span>
                                 </div>
                                 <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-semibold text-gray-500">Date de retrait</span>
+                                    <span class="text-sm text-gray-900">{{ \Carbon\Carbon::parse($commande->date_retrait)->format('d/m/Y') }}</span>
+                                </div>
+                                <div class="flex items-center justify-between mb-2">
                                     <span class="text-xs font-semibold text-gray-500">Montant</span>
                                     <span class="text-sm font-bold text-gray-900">{{ number_format($commande->total, 0, ',', ' ') }} FCFA</span>
                                 </div>
-                                @if($commande->avance_client > 0)
+                                        @if($commande->avance_client > 0)
                                     <div class="flex items-center justify-between mb-2">
                                         <span class="text-xs font-semibold text-gray-500">Acompte</span>
                                         <span class="text-xs text-gray-500">{{ number_format($commande->avance_client, 0, ',', ' ') }} FCFA</span>
-                                    </div>
-                                @endif
+                                            </div>
+                                        @endif
                                 <div class="flex items-center justify-between mb-4">
                                     <span class="text-xs font-semibold text-gray-500">Statut</span>
-                                    @if($commande->statut === 'Retiré')
+                                        @if($commande->statut === 'Retiré')
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Retiré</span>
-                                    @elseif($commande->statut === 'Partiellement payé')
+                                        @elseif($commande->statut === 'Partiellement payé')
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">Partiellement payé</span>
-                                    @else
+                                        @else
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">En attente</span>
-                                    @endif
+                                        @endif
                                 </div>
                             </div>
                             <div class="flex flex-col sm:flex-row gap-2 mt-4">
-                                <a href="{{ route('client.factures.download', $commande->id) }}"
+                                        <a href="{{ route('client.factures.download', $commande->id) }}"
                                    class="inline-flex items-center justify-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors w-full sm:w-auto">
-                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                    </svg>
-                                    Télécharger
-                                </a>
-                                @php
-                                    $numeroPressing = '229XXXXXXXX'; // Remplace par le vrai numéro WhatsApp du pressing
-                                    $message = rawurlencode(
-                                        'Bonjour,\nJe souhaite avoir des informations sur ma facture #' . ($commande->numero ?? '') . ' du ' . (\Carbon\Carbon::parse($commande->created_at)->format('d/m/Y')) . '.\nMerci.'
-                                    );
-                                @endphp
-                                <a href="https://wa.me/{{ $numeroPressing }}?text={{ $message }}"
-                                   target="_blank"
+                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                            </svg>
+                                            Télécharger
+                                        </a>
+                                        @php
+                                            $numeroPressing = '229XXXXXXXX'; // Remplace par le vrai numéro WhatsApp du pressing
+                                            $message = rawurlencode(
+                                                'Bonjour,\nJe souhaite avoir des informations sur ma facture #' . ($commande->numero ?? '') . ' du ' . (\Carbon\Carbon::parse($commande->created_at)->format('d/m/Y')) . '.\nMerci.'
+                                            );
+                                        @endphp
+                                        <a href="https://wa.me/{{ $numeroPressing }}?text={{ $message }}"
+                                           target="_blank"
                                    class="inline-flex items-center justify-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors w-full sm:w-auto">
-                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V10a2 2 0 012-2h2m4-4h4a2 2 0 012 2v4a2 2 0 01-2 2h-4a2 2 0 01-2-2V6a2 2 0 012-2z" />
-                                    </svg>
-                                    WhatsApp
-                                </a>
+                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V10a2 2 0 012-2h2m4-4h4a2 2 0 012 2v4a2 2 0 01-2 2h-4a2 2 0 01-2-2V6a2 2 0 012-2z" />
+                                            </svg>
+                                            WhatsApp
+                                        </a>
                             </div>
                         </div>
-                    @endforeach
+                            @endforeach
                 </div>
             @endif
         </div>
@@ -233,7 +237,7 @@
                         <ul class="list-disc list-inside space-y-1">
                             <li>Vos factures sont générées automatiquement à partir de vos commandes</li>
                             <li>Vous pouvez télécharger vos factures en format PDF</li>
-                            <li>Pour toute question, contactez-nous au {{ $clientInfo['numero_whatsapp'] }}</li>
+                            <li>Pour toute question, contactez-nous au +229 0157083160</li>
                         </ul>
                     </div>
                 </div>
